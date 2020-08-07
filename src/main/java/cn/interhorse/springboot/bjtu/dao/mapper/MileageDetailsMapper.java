@@ -18,6 +18,13 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where birth_year >= #{start} and birth_year <= #{end}")
+    @Results(id="mileageDetailMap", value = {
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "gender", property = "gender"),
+            @Result(column = "birth_year", property = "birthYear"),
+            @Result(column = "total_mileage", property = "totalMileage"),
+            @Result(column = "total_time", property = "totalTime")
+    })
     List<MileageDetails> selectByYearsInterval(@Param("start") int startBirthYear, @Param("end") int endBirthYear);
 
     /**
@@ -28,6 +35,7 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where total_mileage >= #{start} and total_mileage <= #{end}")
+    @ResultMap(value="mileageDetailMap")
     List<MileageDetails> selectByMilesInterval(@Param("start") int startMileage, @Param("end") int endMileage);
 
     /**
@@ -38,5 +46,6 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where total_time >= #{start} and total_time <= #{end}")
+    @ResultMap(value="mileageDetailMap")
     List<MileageDetails> selectByTimeInterval(@Param("start") int startTime, @Param("end") int endTime);
 }

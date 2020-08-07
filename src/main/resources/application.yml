@@ -15,6 +15,6 @@ logging:
     cn:
       interhorse:
         springboot:
-          mybatisdruidmysql:
+          bjtu:
             dao:
               mapper: debug
