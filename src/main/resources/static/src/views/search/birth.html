@@ -1,0 +1,59 @@
+
+<title>柱状图</title>
+
+<div class="layui-card layadmin-header">
+  <div class="layui-breadcrumb" lay-filter="breadcrumb">
+    <a lay-href="">主页</a>
+    <a><cite>按出生年份查询</cite></a>
+  </div>
+</div>
+
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <form class="layui-form" action="" lay-filter="birth_form">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">年龄范围</label>
+              <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="birth_start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
+              </div>
+              <div class="layui-form-mid">-</div>
+              <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="birth_end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
+              </div>
+                <button type="button" class="layui-btn layui-btn-normal" onclick="search()">
+                    <i class="layui-icon">&#xe615;</i> 搜索
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+          <ul class="layui-tab-title">
+            <li class="layui-this">详细数据</li>
+            <li>数据图表</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+              <table id="birth-table" lay-filter="test"></table>
+            </div>
+            <div class="layui-tab-item">内容2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+layui.use('birth', layui.factory('birth'));
+
+function search() {
+    layui.reloadBirthTable();
+}
+</script>

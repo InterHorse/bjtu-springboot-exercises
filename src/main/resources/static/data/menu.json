@@ -1,0 +1,24 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": [
+    {
+      "name": "birthYear",
+      "title": "按年龄查询",
+      "icon": "layui-icon-username",
+      "jump": "search/birth"
+    },
+    {
+      "name": "miles",
+      "title": "按里程查询",
+      "icon": "layui-icon-console",
+      "jump": "search/miles"
+    },
+    {
+      "name": "time",
+      "title": "按时间查询",
+      "icon": "layui-icon-time",
+      "jump": "search/times"
+    }
+  ]
+}
