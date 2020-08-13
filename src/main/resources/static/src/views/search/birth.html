@@ -1,36 +1,15 @@
 
-<title>按出生年份查询</title>
+<title>按年份查询</title>
 
 <div class="layui-card layadmin-header">
   <div class="layui-breadcrumb" lay-filter="breadcrumb">
     <a lay-href="">主页</a>
-    <a><cite>按出生年份查询</cite></a>
+    <a><cite>按年份查询</cite></a>
   </div>
 </div>
 
 <div class="layui-fluid">
   <div class="layui-row layui-col-space15">
-    <div class="layui-col-md12">
-      <div class="layui-card">
-        <form class="layui-form" action="" lay-filter="form">
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">年份范围</label>
-              <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
-              </div>
-              <div class="layui-form-mid">-</div>
-              <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
-              </div>
-                <button type="button" class="layui-btn layui-btn-normal" onclick="search()">
-                    <i class="layui-icon">&#xe615;</i> 搜索
-                </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
     <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -40,6 +19,23 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
+              <form class="layui-form" action="" lay-filter="form">
+                <div class="layui-form-item">
+                  <div class="layui-inline">
+                    <label class="layui-form-label">年份范围</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                      <input type="text" name="start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                      <input type="text" name="end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
+                    </div>
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="search()">
+                      <i class="layui-icon">&#xe615;</i> 搜索
+                    </button>
+                  </div>
+                </div>
+              </form>
               <table id="table" lay-filter="test"></table>
             </div>
             <div class="layui-tab-item">内容2</div>
