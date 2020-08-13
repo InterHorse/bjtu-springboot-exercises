@@ -1,97 +1,59 @@
 
-<title>折线图</title>
+<title>按里程查询</title>
 
 <div class="layui-card layadmin-header">
   <div class="layui-breadcrumb" lay-filter="breadcrumb">
     <a lay-href="">主页</a>
-    <a><cite>高级</cite></a>
-    <a><cite>Echarts集成</cite></a>
-    <a><cite>折线图</cite></a>
+    <a><cite>按里程查询</cite></a>
   </div>
 </div>
 
 <div class="layui-fluid">
   <div class="layui-row layui-col-space15">
-    <div class="layui-col-md6">
+    <div class="layui-col-md12">
       <div class="layui-card">
-        <div class="layui-card-header">标准折线图</div>
-        <div class="layui-card-body">
-
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline">
-            <div carousel-item id="LAY-index-normline">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+        <form class="layui-form" action="" lay-filter="form">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">里程范围</label>
+              <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="0">
+              </div>
+              <div class="layui-form-mid">-</div>
+              <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="5000">
+              </div>
+              <button type="button" class="layui-btn layui-btn-normal" onclick="search()">
+                <i class="layui-icon">&#xe615;</i> 搜索
+              </button>
             </div>
           </div>
-
-        </div>
+        </form>
       </div>
+    </div>
+    <div class="layui-col-md12">
       <div class="layui-card">
-        <div class="layui-card-header">堆积折线图</div>
-        <div class="layui-card-body">
-          
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline">
-            <div carousel-item id="LAY-index-heapline">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+          <ul class="layui-tab-title">
+            <li class="layui-this">详细数据</li>
+            <li>数据图表</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+              <table id="table" lay-filter="test"></table>
             </div>
+            <div class="layui-tab-item">内容2</div>
           </div>
-
-        </div>
-      </div>
-      <div class="layui-card">
-        <div class="layui-card-header">不等距折线图</div>
-        <div class="layui-card-body">
-          
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-diffline">
-            <div carousel-item id="LAY-index-diffline">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-    <div class="layui-col-md6">
-      <div class="layui-card">
-        <div class="layui-card-header">堆积面积图</div>
-        <div class="layui-card-body">
-          
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heaparea">
-            <div carousel-item id="LAY-index-heaparea">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="layui-card">
-        <div class="layui-card-header">面积图</div>
-        <div class="layui-card-body">
-         
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-area">
-            <div carousel-item id="LAY-index-area">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="layui-card">
-        <div class="layui-card-header">对数轴</div>
-        <div class="layui-card-body">
-         
-          <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-logline">
-            <div carousel-item id="LAY-index-logline">
-              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    
   </div>
 </div>
 
 <script>
-layui.use('senior', layui.factory('senior'));
+  layui.use('mile', layui.factory('mile'));
+
+  function search() {
+    layui.reloadTable();
+  }
 </script>

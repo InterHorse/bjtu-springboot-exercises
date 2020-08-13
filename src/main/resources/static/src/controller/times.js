@@ -1,8 +1,8 @@
 /**
 
- @Name：按出生年份查询
+ @Name：按时间查询
  @Author：InterHorse
- @Date：2020-08-07
+ @Date：2020-08-13
  */
 
 
@@ -12,7 +12,7 @@ layui.define(function (exports) {
         //第一个实例
         table.render({
             elem: '#table'
-            , url: 'http://127.0.0.1/search/birthYearInterval' //数据接口
+            , url: 'http://127.0.0.1/search/timeInterval' //数据接口
             , where: {}
             , page: true //开启分页
             , limit: 10
@@ -62,5 +62,5 @@ layui.define(function (exports) {
         });
     });
 
-    exports('birth', {})
+    exports('times', {})
 });

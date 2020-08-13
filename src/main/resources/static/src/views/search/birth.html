@@ -1,5 +1,5 @@
 
-<title>柱状图</title>
+<title>按出生年份查询</title>
 
 <div class="layui-card layadmin-header">
   <div class="layui-breadcrumb" lay-filter="breadcrumb">
@@ -12,16 +12,16 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md12">
       <div class="layui-card">
-        <form class="layui-form" action="" lay-filter="birth_form">
+        <form class="layui-form" action="" lay-filter="form">
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">年龄范围</label>
+              <label class="layui-form-label">年份范围</label>
               <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="birth_start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
+                <input type="text" name="start" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
               </div>
               <div class="layui-form-mid">-</div>
               <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="birth_end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
+                <input type="text" name="end" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
               </div>
                 <button type="button" class="layui-btn layui-btn-normal" onclick="search()">
                     <i class="layui-icon">&#xe615;</i> 搜索
@@ -40,7 +40,7 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-              <table id="birth-table" lay-filter="test"></table>
+              <table id="table" lay-filter="test"></table>
             </div>
             <div class="layui-tab-item">内容2</div>
           </div>
@@ -54,6 +54,6 @@
 layui.use('birth', layui.factory('birth'));
 
 function search() {
-    layui.reloadBirthTable();
+    layui.reloadTable();
 }
 </script>
