@@ -38,7 +38,32 @@
               </form>
               <table id="table" lay-filter="test"></table>
             </div>
-            <div class="layui-tab-item">内容2</div>
+            <div class="layui-tab-item">
+              <div class="layui-row layui-col-space1">
+                <div class="layui-col-md4">
+                  <form class="layui-form" action="" lay-filter="form">
+                    <div class="layui-form-item" id="chart-form">
+                      <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 20%;">
+                          <input type="text" name="start-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">
+                        </div>
+                        <div class="layui-form-mid">-</div>
+                        <div class="layui-input-inline" style="width: 20%;">
+                          <input type="text" name="end-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">
+                        </div>
+                        <button type="button" class="layui-btn layui-btn-normal" onclick="addForm()">
+                          <i class="layui-icon">&#xe624;</i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-normal" onclick="">
+                          <i class="layui-icon">&#xe615;</i> 搜索
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="layui-col-md8">TEST2</div>
+            </div>
           </div>
         </div>
       </div>
@@ -50,6 +75,10 @@
 layui.use('birth', layui.factory('birth'));
 
 function search() {
-    layui.reloadTable();
+  layui.reloadTable();
+}
+
+function addForm() {
+  layui.addForm();
 }
 </script>

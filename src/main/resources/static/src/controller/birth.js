@@ -26,9 +26,8 @@ layui.define(function (exports) {
             ]]
             , parseData: function (res) {
                 var resList = res.data.list;
-                console.log(resList);
                 for (var i = 0; i < resList.length; i++) {
-                    if (resList[i].gender == '0') {
+                    if (resList[i].gender === '0') {
                         resList[i].gender = '女';
                     } else {
                         resList[i].gender = '男';
@@ -50,7 +49,6 @@ layui.define(function (exports) {
             var form = layui.form;
 
             var data = form.val("form");
-            console.log(data);
             table.reload('table', {
                 where: {
                     start: data.start,
@@ -60,6 +58,24 @@ layui.define(function (exports) {
                 }
             });
         });
+    });
+
+    exports('addForm', function () {
+        layui.use(['jquery', 'form'], function () {
+            var $ = layui.$
+            console.log(num);
+            console.log($("#chart-form"));
+            $("#chart-form").append('<div class="layui-inline">\n' +
+                '                        <div class="layui-input-inline" style="width: 20%;">\n' +
+                '                          <input type="text" name="start-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">\n' +
+                '                        </div>\n' +
+                '                        <div class="layui-form-mid">-</div>\n' +
+                '                        <div class="layui-input-inline" style="width: 20%;">\n' +
+                '                          <input type="text" name="end-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">\n' +
+                '                        </div>\n' +
+                '                      </div>');
+        });
+        nums++;
     });
 
     exports('birth', {})

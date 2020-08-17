@@ -26,7 +26,6 @@ layui.define(function (exports) {
             ]]
             , parseData: function (res) {
                 var resList = res.data.list;
-                console.log(resList);
                 for (var i = 0; i < resList.length; i++) {
                     if (resList[i].gender == '0') {
                         resList[i].gender = '女';
@@ -50,7 +49,6 @@ layui.define(function (exports) {
             var form = layui.form;
 
             var data = form.val("form");
-            console.log(data);
             table.reload('table', {
                 where: {
                     start: data.start,
