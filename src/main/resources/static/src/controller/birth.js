@@ -4,11 +4,13 @@
  @Author：InterHorse
  @Date：2020-08-07
  */
-
+let limitNum = 10;
+let currentNum = 2;
+let index = 2;
 
 layui.define(function (exports) {
     layui.use('table', function () {
-        var table = layui.table;
+        let table = layui.table;
         //第一个实例
         table.render({
             elem: '#table'
@@ -25,8 +27,8 @@ layui.define(function (exports) {
                 , {field: 'totalTime', title: '总旅行时间', sort: true}
             ]]
             , parseData: function (res) {
-                var resList = res.data.list;
-                for (var i = 0; i < resList.length; i++) {
+                let resList = res.data.list;
+                for (let i = 0; i < resList.length; i++) {
                     if (resList[i].gender === '0') {
                         resList[i].gender = '女';
                     } else {
@@ -45,10 +47,10 @@ layui.define(function (exports) {
 
     exports('reloadTable', function () {
         layui.use(['table', 'form'], function () {
-            var table = layui.table;
-            var form = layui.form;
+            let table = layui.table;
+            let form = layui.form;
 
-            var data = form.val("form");
+            let data = form.val("form");
             table.reload('table', {
                 where: {
                     start: data.start,
@@ -61,21 +63,74 @@ layui.define(function (exports) {
     });
 
     exports('addForm', function () {
-        layui.use(['jquery', 'form'], function () {
-            var $ = layui.$
-            console.log(num);
-            console.log($("#chart-form"));
-            $("#chart-form").append('<div class="layui-inline">\n' +
+        if (currentNum >= limitNum) {
+            return;
+        }
+        layui.use('jquery', function () {
+            let $ = layui.$
+            $("#chart-form").append('<div class="layui-inline" id="chart-form-line-' + index + '">\n' +
                 '                        <div class="layui-input-inline" style="width: 20%;">\n' +
-                '                          <input type="text" name="start-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="1900">\n' +
+                '                          <input type="text" name="start-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="1900">\n' +
                 '                        </div>\n' +
                 '                        <div class="layui-form-mid">-</div>\n' +
                 '                        <div class="layui-input-inline" style="width: 20%;">\n' +
-                '                          <input type="text" name="end-1" autocomplete="off" class="layui-input" lay-verify="number" placeholder="2020">\n' +
+                '                          <input type="text" name="end-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="2020">\n' +
                 '                        </div>\n' +
+                '                        <button type="button" class="layui-btn layui-btn-danger" onclick="delForm(' + index + ')">\n' +
+                '                          <i class="layui-icon">&#xe67e;</i>\n' +
+                '                        </button>' +
                 '                      </div>');
         });
-        nums++;
+        currentNum++;
+        index++;
+
+    });
+
+    exports('delForm', function (num) {
+        layui.use('jquery', function () {
+            let $ = layui.$
+            $("#chart-form-line-" + num).remove();
+        });
+        currentNum--;
+    });
+
+    exports('searchChart', function () {
+        layui.use(['jquery', 'form'], function () {
+            let $ = layui.jquery;
+            let form = layui.form;
+            let data = form.val("chart-form");
+            let arr = [];
+            let j = 0
+            for (let i in data) {
+                let curData = data[i];
+                if (curData === '') {
+                    curData = 0;
+                }
+                if (j % 2 === 0) {
+                    arr[j] = curData;
+                } else {
+                    if (curData < arr[j - 1]) {
+                        arr[j] = arr[j - 1];
+                        arr[j - 1] = curData;
+                    }else {
+                        arr[j] = curData;
+                    }
+                }
+                j++;
+            }
+
+            $.ajax({
+                url:"http://127.0.0.1/search/birthChart",
+                type:"post",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    data: arr
+                }),
+                dataType:"json",
+                success:function(data){
+                }
+            });
+        });
     });
 
     exports('birth', {})

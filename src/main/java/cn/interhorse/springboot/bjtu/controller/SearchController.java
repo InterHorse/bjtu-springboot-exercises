@@ -1,18 +1,16 @@
 package cn.interhorse.springboot.bjtu.controller;
 
 import cn.interhorse.springboot.bjtu.dao.mapper.MileageDetailsMapper;
-import cn.interhorse.springboot.bjtu.entity.MileageDetails;
 import cn.interhorse.springboot.bjtu.entity.PageData;
 import cn.interhorse.springboot.bjtu.entity.ResponseBO;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -119,5 +117,12 @@ public class SearchController {
         int endInt = Integer.parseInt(end);
         PageHelper.startPage(pageInt, limitInt);
         return new ResponseBO(new PageData<>(mileageDetailsMapper.selectByTimeInterval(startInt, endInt)));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/birthChart", method = RequestMethod.POST)
+    private ResponseBO getBirthChart(@RequestBody Map<String, Object> map) {
+//        String data = httpServletRequest.getParameter("data");
+        return new ResponseBO();
     }
 }
