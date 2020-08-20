@@ -11,4 +11,4 @@
 3. 修改 `application.yml` 中的数据库连接信息。修改库名、用户名及密码
 4. 运行程序，端口为 80。如需修改，则在 `application.yml` 中修改 `server.port` 值。
 5. 打开浏览器，访问 127.0.0.1，如果出现如下图界面，则说明项目启动成功。
-![](http://resources.interhorse.cn/20200820175913.png!interhorse_1)
+![](https://github.com/InterHorse/bjtu-springboot-exercises/raw/master/data/demo.png)
