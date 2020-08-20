@@ -98,14 +98,16 @@ layui.define(function (exports) {
         layui.use(['jquery', 'form', 'echarts'], function () {
             let $ = layui.jquery;
             let form = layui.form;
-            let data = form.val("chart-form");
+            let echarts = layui.echarts;
+
+            let formData = form.val("chart-form");
             let arr = [];
             let dataArr = [];
             let d;
             let j = 0;
             let k = 0;
-            for (let i in data) {
-                let curData = data[i];
+            for (let i in formData) {
+                let curData = formData[i];
                 if (curData === '') {
                     curData = 0;
                 }
@@ -115,7 +117,7 @@ layui.define(function (exports) {
                     if (curData < arr[0]) {
                         arr[1] = arr[0];
                         arr[0] = curData;
-                    }else {
+                    } else {
                         arr[1] = curData;
                     }
                     d = {};
@@ -125,17 +127,62 @@ layui.define(function (exports) {
                 }
             }
 
-            let resData;
+            var resData = [];
             $.ajax({
-                url:"http://127.0.0.1/search/birthChart",
-                type:"post",
+                url: "http://127.0.0.1/search/birthChart",
+                type: "post",
+                async: false,
                 contentType: "application/json",
                 data: JSON.stringify(dataArr),
-                dataType:"json",
-                success:function(data){
+                dataType: "json",
+                success: function (data) {
                     resData = data.data;
                 }
             });
+
+            let xAxisData = [];
+            let yAxisData = [];
+            for (let i in resData) {
+                xAxisData[i] = resData[i].start + " - " + resData[i].end;
+                yAxisData[i] = resData[i].num;
+            }
+            //标准柱状图
+            let option = {
+                title: {
+                    text: '按出生年份统计'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                },
+                legend: {
+                    data:['人数']
+                },
+                xAxis: {
+                    data: xAxisData
+                },
+                yAxis: {},
+                series: [
+                    {
+                        data: yAxisData,
+                        name: '人数',
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            let chart = echarts.init(document.getElementById('chart'));
+            chart.setOption(option);
         });
     });
 

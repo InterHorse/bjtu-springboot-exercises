@@ -15,7 +15,7 @@
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
           <ul class="layui-tab-title">
             <li class="layui-this">详细数据</li>
-            <li>数据图表</li>
+            <li onclick="searchChart()">数据图表</li>
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
@@ -45,11 +45,11 @@
                     <div class="layui-form-item" id="chart-form">
                       <div class="layui-inline">
                         <div class="layui-input-inline" style="width: 20%;">
-                          <input type="text" name="start-1" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" placeholder="1900">
+                          <input type="text" name="start-1" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" placeholder="1900" value="1990">
                         </div>
                         <div class="layui-form-mid">-</div>
                         <div class="layui-input-inline" style="width: 20%;">
-                          <input type="text" name="end-1" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" placeholder="2020">
+                          <input type="text" name="end-1" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')" placeholder="2020"value="1995">
                         </div>
                         <button type="button" class="layui-btn layui-btn-normal" onclick="addForm()">
                           <i class="layui-icon">&#xe624;</i>
@@ -61,8 +61,10 @@
                     </div>
                   </form>
                 </div>
+                <div class="layui-col-md8">
+                  <div id="chart" style="width: 100%;height: 300px"></div>
+                </div>
               </div>
-              <div class="layui-col-md8">TEST2</div>
             </div>
           </div>
         </div>
