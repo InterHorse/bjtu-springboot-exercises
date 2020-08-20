@@ -60,5 +60,130 @@ layui.define(function (exports) {
         });
     });
 
+
+    exports('addForm', function () {
+        if (currentNum >= limitNum) {
+            return;
+        }
+        layui.use('jquery', function () {
+            let $ = layui.$
+            $("#chart-form").append('<div class="layui-inline" id="chart-form-line-' + index + '">\n' +
+                '                        <div class="layui-input-inline" style="width: 20%;">\n' +
+                '                          <input type="text" name="start-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="1900">\n' +
+                '                        </div>\n' +
+                '                        <div class="layui-form-mid">-</div>\n' +
+                '                        <div class="layui-input-inline" style="width: 20%;">\n' +
+                '                          <input type="text" name="end-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="2020">\n' +
+                '                        </div>\n' +
+                '                        <button type="button" class="layui-btn layui-btn-danger" onclick="delForm(' + index + ')">\n' +
+                '                          <i class="layui-icon">&#xe67e;</i>\n' +
+                '                        </button>' +
+                '                      </div>');
+        });
+        currentNum++;
+        index++;
+
+    });
+
+    exports('delForm', function (num) {
+        layui.use('jquery', function () {
+            let $ = layui.$
+            $("#chart-form-line-" + num).remove();
+        });
+        currentNum--;
+    });
+
+    exports('searchChart', function () {
+        layui.use(['jquery', 'form', 'echarts'], function () {
+            let $ = layui.jquery;
+            let form = layui.form;
+            let echarts = layui.echarts;
+
+            let formData = form.val("chart-form");
+            let arr = [];
+            let dataArr = [];
+            let d;
+            let j = 0;
+            let k = 0;
+            for (let i in formData) {
+                let curData = formData[i];
+                if (curData === '') {
+                    curData = 0;
+                }
+                if (k++ % 2 === 0) {
+                    arr[0] = curData;
+                } else {
+                    if (curData < arr[0]) {
+                        arr[1] = arr[0];
+                        arr[0] = curData;
+                    } else {
+                        arr[1] = curData;
+                    }
+                    d = {};
+                    d.start = arr[0];
+                    d.end = arr[1];
+                    dataArr[j++] = d;
+                }
+            }
+
+            var resData = [];
+            $.ajax({
+                url: "http://127.0.0.1/search/timeChart",
+                type: "post",
+                async: false,
+                contentType: "application/json",
+                data: JSON.stringify(dataArr),
+                dataType: "json",
+                success: function (data) {
+                    resData = data.data;
+                }
+            });
+
+            let xAxisData = [];
+            let yAxisData = [];
+            for (let i in resData) {
+                xAxisData[i] = resData[i].start + " - " + resData[i].end;
+                yAxisData[i] = resData[i].num;
+            }
+            //标准柱状图
+            let option = {
+                title: {
+                    text: '按里程时间统计'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                },
+                legend: {
+                    data:['人数']
+                },
+                xAxis: {
+                    data: xAxisData
+                },
+                yAxis: {},
+                series: [
+                    {
+                        data: yAxisData,
+                        name: '人数',
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            let chart = echarts.init(document.getElementById('chart'));
+            chart.setOption(option);
+        });
+    });
+
     exports('times', {})
 });
