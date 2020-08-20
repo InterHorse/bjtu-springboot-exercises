@@ -95,39 +95,45 @@ layui.define(function (exports) {
     });
 
     exports('searchChart', function () {
-        layui.use(['jquery', 'form'], function () {
+        layui.use(['jquery', 'form', 'echarts'], function () {
             let $ = layui.jquery;
             let form = layui.form;
             let data = form.val("chart-form");
             let arr = [];
-            let j = 0
+            let dataArr = [];
+            let d;
+            let j = 0;
+            let k = 0;
             for (let i in data) {
                 let curData = data[i];
                 if (curData === '') {
                     curData = 0;
                 }
-                if (j % 2 === 0) {
-                    arr[j] = curData;
+                if (k++ % 2 === 0) {
+                    arr[0] = curData;
                 } else {
-                    if (curData < arr[j - 1]) {
-                        arr[j] = arr[j - 1];
-                        arr[j - 1] = curData;
+                    if (curData < arr[0]) {
+                        arr[1] = arr[0];
+                        arr[0] = curData;
                     }else {
-                        arr[j] = curData;
+                        arr[1] = curData;
                     }
+                    d = {};
+                    d.start = arr[0];
+                    d.end = arr[1];
+                    dataArr[j++] = d;
                 }
-                j++;
             }
 
+            let resData;
             $.ajax({
                 url:"http://127.0.0.1/search/birthChart",
                 type:"post",
                 contentType: "application/json",
-                data: JSON.stringify({
-                    data: arr
-                }),
+                data: JSON.stringify(dataArr),
                 dataType:"json",
                 success:function(data){
+                    resData = data.data;
                 }
             });
         });

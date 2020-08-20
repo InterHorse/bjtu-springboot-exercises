@@ -1,6 +1,7 @@
 package cn.interhorse.springboot.bjtu.dao.mapper;
 
 import cn.interhorse.springboot.bjtu.entity.MileageDetails;
+import cn.interhorse.springboot.bjtu.entity.StatisticsDataBO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -48,4 +49,13 @@ public interface MileageDetailsMapper {
     @Select("select * from mileage_details_t where total_time >= #{start} and total_time <= #{end}")
     @ResultMap(value="mileageDetailMap")
     List<MileageDetails> selectByTimeInterval(@Param("start") int startTime, @Param("end") int endTime);
+
+    @Select("select count(*) from mileage_details_t where birth_year >= #{start} and birth_year <= #{end}")
+    int countByYearsInterval(StatisticsDataBO statisticsDataBO);
+
+    @Select("select count(*) from mileage_details_t where total_mileage >= #{start} and total_mileage <= #{end}")
+    int countByMilesInterval(StatisticsDataBO statisticsDataBO);
+
+    @Select("select count(*) from mileage_details_t where total_time >= #{start} and total_time <= #{end}")
+    int countByTimeInterval(StatisticsDataBO statisticsDataBO);
 }

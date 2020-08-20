@@ -3,6 +3,7 @@ package cn.interhorse.springboot.bjtu.controller;
 import cn.interhorse.springboot.bjtu.dao.mapper.MileageDetailsMapper;
 import cn.interhorse.springboot.bjtu.entity.PageData;
 import cn.interhorse.springboot.bjtu.entity.ResponseBO;
+import cn.interhorse.springboot.bjtu.entity.StatisticsDataBO;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -121,8 +124,28 @@ public class SearchController {
 
     @ResponseBody
     @RequestMapping(value = "/birthChart", method = RequestMethod.POST)
-    private ResponseBO getBirthChart(@RequestBody Map<String, Object> map) {
-//        String data = httpServletRequest.getParameter("data");
-        return new ResponseBO();
+    private ResponseBO getBirthChart(@RequestBody List<StatisticsDataBO> list) {
+        for (StatisticsDataBO s : list) {
+            s.setNum(mileageDetailsMapper.countByYearsInterval(s));
+        }
+        return new ResponseBO(list);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/milesChart", method = RequestMethod.POST)
+    private ResponseBO getMilesChart(@RequestBody List<StatisticsDataBO> list) {
+        for (StatisticsDataBO s : list) {
+            s.setNum(mileageDetailsMapper.countByMilesInterval(s));
+        }
+        return new ResponseBO(list);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/timeChart", method = RequestMethod.POST)
+    private ResponseBO getTimeChart(@RequestBody List<StatisticsDataBO> list) {
+        for (StatisticsDataBO s : list) {
+            s.setNum(mileageDetailsMapper.countByTimeInterval(s));
+        }
+        return new ResponseBO(list);
     }
 }
