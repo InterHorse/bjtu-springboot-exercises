@@ -29,7 +29,7 @@ layui.define(function (exports) {
             , parseData: function (res) {
                 let resList = res.data.list;
                 for (let i = 0; i < resList.length; i++) {
-                    if (resList[i].gender === '0') {
+                    if (resList[i].gender == '0') {
                         resList[i].gender = '女';
                     } else {
                         resList[i].gender = '男';
