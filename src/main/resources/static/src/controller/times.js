@@ -69,11 +69,11 @@ layui.define(function (exports) {
             let $ = layui.$
             $("#chart-form").append('<div class="layui-inline" id="chart-form-line-' + index + '">\n' +
                 '                        <div class="layui-input-inline" style="width: 20%;">\n' +
-                '                          <input type="text" name="start-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="1900">\n' +
+                '                          <input type="text" name="start-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="0">\n' +
                 '                        </div>\n' +
                 '                        <div class="layui-form-mid">-</div>\n' +
                 '                        <div class="layui-input-inline" style="width: 20%;">\n' +
-                '                          <input type="text" name="end-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="2020">\n' +
+                '                          <input type="text" name="end-' + index + '" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\\d]/g,\'\')" placeholder="10">\n' +
                 '                        </div>\n' +
                 '                        <button type="button" class="layui-btn layui-btn-danger" onclick="delForm(' + index + ')">\n' +
                 '                          <i class="layui-icon">&#xe67e;</i>\n' +
