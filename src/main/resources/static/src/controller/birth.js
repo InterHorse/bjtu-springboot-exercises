@@ -1,21 +1,25 @@
 /**
 
  @Name：按出生年份查询
- @Author：InterHorse
+ @Author：Yuzhe ma
  @Date：2020-08-07
  */
-let limitNum = 10;
-let currentNum = 2;
-let index = 2;
 
+// 定义 birth 模块
 layui.define(function (exports) {
+    // 表单个数限制
+    let limitNum = 10;
+    // 当前表单个数
+    let currentNum = 1;
+    // 表单编号
+    let index = 2;
+
+    // 表格初始化
     layui.use('table', function () {
         let table = layui.table;
-        //第一个实例
         table.render({
             elem: '#table'
             , url: 'http://127.0.0.1/search/birthYearInterval' //数据接口
-            , where: {}
             , page: true //开启分页
             , limit: 10
             , limits: [20, 50, 100, 500]
@@ -45,6 +49,7 @@ layui.define(function (exports) {
         });
     });
 
+    // 重载表格
     exports('reloadTable', function () {
         layui.use(['table', 'form'], function () {
             let table = layui.table;
@@ -62,7 +67,9 @@ layui.define(function (exports) {
         });
     });
 
+    // 添加表单
     exports('addForm', function () {
+        // 表单个数限制
         if (currentNum >= limitNum) {
             return;
         }
@@ -83,9 +90,9 @@ layui.define(function (exports) {
         });
         currentNum++;
         index++;
-
     });
 
+    // 删除表单
     exports('delForm', function (num) {
         layui.use('jquery', function () {
             let $ = layui.$
@@ -94,6 +101,7 @@ layui.define(function (exports) {
         currentNum--;
     });
 
+    // 图表查询
     exports('searchChart', function () {
         layui.use(['jquery', 'form', 'echarts'], function () {
             let $ = layui.jquery;
@@ -106,6 +114,7 @@ layui.define(function (exports) {
             let d;
             let j = 0;
             let k = 0;
+            // 表单内容解析，调换大小顺序。保证先小后大
             for (let i in formData) {
                 let curData = formData[i];
                 if (curData === '') {
@@ -127,6 +136,7 @@ layui.define(function (exports) {
                 }
             }
 
+            // 请求数据
             var resData = [];
             $.ajax({
                 url: "http://127.0.0.1/search/birthChart",
@@ -140,13 +150,14 @@ layui.define(function (exports) {
                 }
             });
 
+            // 构建图表
             let xAxisData = [];
             let yAxisData = [];
             for (let i in resData) {
                 xAxisData[i] = resData[i].start + " - " + resData[i].end;
                 yAxisData[i] = resData[i].num;
             }
-            //标准柱状图
+            // 标准柱状图
             let option = {
                 title: {
                     text: '按出生年份统计'
@@ -186,9 +197,11 @@ layui.define(function (exports) {
         });
     });
 
+    // tab 监听事件
     layui.use('element', function(){
         var element = layui.element;
 
+        // 当 tab 切换到图表时，自动构建图表
         element.on('tab(search-tab)', function(data){
             let tabIndex = data.index;
             if (tabIndex == 1) {

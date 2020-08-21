@@ -19,7 +19,7 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where birth_year >= #{start} and birth_year <= #{end}")
-    @Results(id="mileageDetailMap", value = {
+    @Results(id = "mileageDetailMap", value = {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "gender", property = "gender"),
             @Result(column = "birth_year", property = "birthYear"),
@@ -36,7 +36,7 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where total_mileage >= #{start} and total_mileage <= #{end}")
-    @ResultMap(value="mileageDetailMap")
+    @ResultMap(value = "mileageDetailMap")
     List<MileageDetails> selectByMilesInterval(@Param("start") int startMileage, @Param("end") int endMileage);
 
     /**
@@ -47,15 +47,33 @@ public interface MileageDetailsMapper {
      * @return
      */
     @Select("select * from mileage_details_t where total_time >= #{start} and total_time <= #{end}")
-    @ResultMap(value="mileageDetailMap")
+    @ResultMap(value = "mileageDetailMap")
     List<MileageDetails> selectByTimeInterval(@Param("start") int startTime, @Param("end") int endTime);
 
+    /**
+     * 查询出生年份范围内的人数
+     *
+     * @param statisticsDataBO
+     * @return
+     */
     @Select("select count(*) from mileage_details_t where birth_year >= #{start} and birth_year <= #{end}")
     int countByYearsInterval(StatisticsDataBO statisticsDataBO);
 
+    /**
+     * 查询里程数范围内的人数
+     *
+     * @param statisticsDataBO
+     * @return
+     */
     @Select("select count(*) from mileage_details_t where total_mileage >= #{start} and total_mileage <= #{end}")
     int countByMilesInterval(StatisticsDataBO statisticsDataBO);
 
+    /**
+     * 查询里程时间范围内的人数
+     *
+     * @param statisticsDataBO
+     * @return
+     */
     @Select("select count(*) from mileage_details_t where total_time >= #{start} and total_time <= #{end}")
     int countByTimeInterval(StatisticsDataBO statisticsDataBO);
 }

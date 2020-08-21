@@ -3,6 +3,8 @@ package cn.interhorse.springboot.bjtu.entity;
 import lombok.Data;
 
 /**
+ * 数据实体
+ *
  * @author Yuzhe Ma
  * @date 2020/7/30
  */

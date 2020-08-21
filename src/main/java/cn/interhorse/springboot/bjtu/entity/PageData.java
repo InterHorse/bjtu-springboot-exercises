@@ -6,6 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 分页实体类
+ *
  * @author Yuzhe Ma
  * @date 2019-03-07
  */
@@ -17,9 +19,7 @@ public class PageData<T> {
     private int pages;
     private List<T> list;
 
-    public PageData() {
-
-    }
+    public PageData() {}
 
     public PageData(List<T> list) {
         if (list instanceof Page) {
@@ -31,5 +31,4 @@ public class PageData<T> {
             this.list = page;
         }
     }
-
 }
