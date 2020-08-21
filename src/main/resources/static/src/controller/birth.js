@@ -186,5 +186,16 @@ layui.define(function (exports) {
         });
     });
 
+    layui.use('element', function(){
+        var element = layui.element;
+
+        element.on('tab(search-tab)', function(data){
+            let tabIndex = data.index;
+            if (tabIndex == 1) {
+                layui.searchChart();
+            }
+        });
+    });
+
     exports('birth', {})
 });
