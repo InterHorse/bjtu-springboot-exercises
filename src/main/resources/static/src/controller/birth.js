@@ -13,6 +13,8 @@ layui.define(function (exports) {
     let currentNum = 1;
     // 表单编号
     let index = 2;
+    // 表单是否初始化
+    let isChartInited = 0;
 
     // 表格初始化
     layui.use('table', function () {
@@ -204,8 +206,9 @@ layui.define(function (exports) {
         // 当 tab 切换到图表时，自动构建图表
         element.on('tab(search-tab)', function(data){
             let tabIndex = data.index;
-            if (tabIndex == 1) {
+            if (tabIndex == 1 && isChartInited == 0) {
                 layui.searchChart();
+                isChartInited = 1;
             }
         });
     });
