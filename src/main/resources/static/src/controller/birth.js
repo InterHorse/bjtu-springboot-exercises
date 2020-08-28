@@ -194,7 +194,7 @@ layui.define(function (exports) {
                 ]
             };
 
-            let chart = echarts.init(document.getElementById('chart'));
+            let chart = echarts.init(document.getElementById('bar-chart'));
             chart.setOption(option);
         });
     });
