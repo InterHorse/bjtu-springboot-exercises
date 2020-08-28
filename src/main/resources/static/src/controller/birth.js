@@ -155,23 +155,31 @@ layui.define(function (exports) {
             // 构建图表
             let xAxisData = [];
             let yAxisData = [];
+            let barDataArr = [];
             for (let i in resData) {
                 xAxisData[i] = resData[i].start + " - " + resData[i].end;
                 yAxisData[i] = resData[i].num;
+                let obj = {};
+                obj.name = xAxisData[i];
+                obj.value = yAxisData[i];
+                barDataArr.push(obj);
             }
-            // 标准柱状图
-            let option = {
+
+            // 柱状图
+            let barOption = {
                 title: {
-                    text: '按出生年份统计'
+                    text: '按出生年份统计柱状图',
+                    left: 'center'
                 },
                 tooltip: {
                     trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    axisPointer: {
+                        type: 'shadow'
                     },
                 },
                 legend: {
-                    data:['人数']
+                    data:['人数'],
+                    left: 'left'
                 },
                 xAxis: {
                     data: xAxisData
@@ -184,6 +192,15 @@ layui.define(function (exports) {
                         type: 'bar',
                         itemStyle: {
                             normal: {
+                                color: function(params) {
+                                    // build a color map as your need.
+                                    var colorList = [
+                                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                        '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                        '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                                    ];
+                                    return colorList[params.dataIndex]
+                                },
                                 label: {
                                     show: true,
                                     position: 'inside'
@@ -194,8 +211,55 @@ layui.define(function (exports) {
                 ]
             };
 
-            let chart = echarts.init(document.getElementById('bar-chart'));
-            chart.setOption(option);
+            // 饼图
+            let pieOption = {
+                title: {
+                    text: '按出生年份统计饼图',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: xAxisData
+                },
+                series: [
+                    {
+                        data: barDataArr,
+                        name: '人数',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: function(params) {
+                                    var colorList = [
+                                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                        '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                        '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                                    ];
+                                    return colorList[params.dataIndex]
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+
+            let barChart = echarts.init(document.getElementById('bar-chart'));
+            let pieChart = echarts.init(document.getElementById('pie-chart'));
+            barChart.setOption(barOption);
+            pieChart.setOption(pieOption);
         });
     });
 
